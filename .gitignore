@@ -1,0 +1,43 @@
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Ambiente virtual
+venv/
+.venv/
+env/
+.env/
+
+# Configurações locais / segredos
+.env.local
+.env.*
+*.sqlite3
+*.db
+
+# Arquivos de log
+*.log
+
+# Arquivos de IDE/Editor
+.vscode/
+.idea/
+*.code-workspace
+
+# Sistema operacional
+Thumbs.db
+.DS_Store
+
+# Testes / cobertura
+.pytest_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+
+# Build / distribuição
+build/
+dist/
+*.egg-info/
+
+
+*.db
+cadastra_user.py
+*.xlsx

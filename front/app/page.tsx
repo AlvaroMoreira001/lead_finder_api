@@ -58,10 +58,19 @@ function SearchPageContent() {
     }
   };
 
-  const handleExport = () => {
+  const handleExport = async () => {
     if (!results?.leads.length) return;
     const params = new URLSearchParams({ query });
-    window.open(`${api.baseUrl}/api/leads/export?${params}`, "_blank");
+    const response = await fetch(`${api.baseUrl}/api/leads/export?${params}`, {
+      headers: api.getHeaders(),
+    });
+    const blob = await response.blob();
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `leads-${query.replace(/\s+/g, "-")}.xlsx`;
+    a.click();
+    URL.revokeObjectURL(url);
   };
 
   return (

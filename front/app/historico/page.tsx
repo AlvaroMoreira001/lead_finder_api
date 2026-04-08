@@ -59,13 +59,22 @@ function HistoryPageContent() {
     setDateTo('');
   };
 
-  const handleExport = () => {
+  const handleExport = async () => {
     const params = new URLSearchParams();
-    if (selectedSegment !== 'all') params.append('segment', selectedSegment);
-    if (selectedCity !== 'all') params.append('city', selectedCity);
-    if (dateFrom) params.append('date_from', dateFrom);
-    if (dateTo) params.append('date_to', dateTo);
-    window.open(`${api.baseUrl}/api/leads/export?${params}`, '_blank');
+    if (selectedSegment !== "all") params.append("segment", selectedSegment);
+    if (selectedCity !== "all") params.append("city", selectedCity);
+    if (dateFrom) params.append("date_from", dateFrom);
+    if (dateTo) params.append("date_to", dateTo);
+    const response = await fetch(`${api.baseUrl}/api/leads/export?${params}`, {
+      headers: api.getHeaders(),
+    });
+    const blob = await response.blob();
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `leads-filtrados.xlsx`;
+    a.click();
+    URL.revokeObjectURL(url);
   };
 
   const totalPages = Math.ceil(leads.length / ITEMS_PER_PAGE);
